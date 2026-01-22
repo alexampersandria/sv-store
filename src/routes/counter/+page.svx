@@ -1,0 +1,93 @@
+<script lang="ts">
+  import { useCounterStore } from '$lib/docs/examples/counter/counter.svelte.ts'
+  import Counter from '$lib/docs/examples/counter/Counter.svelte'
+
+  let counterStore = useCounterStore()
+</script>
+
+# Counter
+
+A simple counter store that has a value and a derived double value, and functions to increment and decrement the value.
+
+The store should be initalized and registered once, you can do this in your root SvelteKit `+layout.svelte` or wherever else you seem fit.
+
+```ts
+import { register } from 'sv-store'
+import { useCounterStore } from '$lib/counter.svelte.ts'
+
+register('counter', useCounterStore())
+```
+
+You can then use the store anywhere in your SvelteKit and data is automatically saved to local storage and synced throughout your app, you only need to register your store once, subsequent registrations of the same `name` will have no effect. You can access the store and use it as follows in your components or routes.
+
+<div class="preview">
+  <div class="value">
+    {counterStore.value}
+  </div>
+  <button onclick={counterStore.increment}> increment </button>
+</div>
+
+```svelte
+<script lang="ts">
+import { useCounterStore } from '$lib/counter.svelte.ts'
+
+let counterStore = useCounterStore()
+</script>
+
+<div class="value">
+  {counterStore.value}
+</div>
+<button onclick={counterStore.increment}> increment </button>
+```
+
+## store definition
+
+The store is created using a state type and a function that returns type of the state using getters and setters for each value.
+
+<div class="preview">
+  <Counter />
+</div>
+
+```svelte
+export type CounterState = {
+  value: number
+  doubleValue: number
+  increment: () => void
+  decrement: () => void
+}
+
+let value: CounterState['value'] = $state(0)
+let doubleValue: number = $derived.by(() => {
+  return value * 2
+})
+
+const increment = () => {
+  value += 1
+}
+
+const decrement = () => {
+  value -= 1
+}
+
+export const useCounterStore: () => CounterState = () => {
+  return {
+    get value() {
+      return value
+    },
+    set value(to: number) {
+      value = to
+    },
+
+    get doubleValue() {
+      return doubleValue
+    },
+
+    get increment() {
+      return increment
+    },
+    get decrement() {
+      return decrement
+    },
+  }
+}
+```

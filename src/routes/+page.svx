@@ -1,0 +1,15 @@
+# sv-store
+
+A Svelte library for creating and managing persistent stores using localStorage or sessionStorage
+
+## installation
+
+Use whatever package manager you want, but [bun](https://bun.com) is the best.
+
+```bash
+bun add -D sv-store
+```
+
+## usage
+
+[counter example](/counter)
