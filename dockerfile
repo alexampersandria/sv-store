@@ -24,7 +24,7 @@ FROM node:20 AS release
 WORKDIR /usr/sv-store.liara.io/
 COPY --from=prerelease /usr/sv-store.liara.io/ .
 COPY --from=install /temp/prod/node_modules node_modules
-RUN npm run dockerbuild
+RUN npm run build
 
 # final image
 FROM nginx AS production

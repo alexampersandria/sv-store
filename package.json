@@ -4,11 +4,9 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && npm run prepack",
-    "dockerbuild": "vite build && npm run dockerpack",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
-    "prepack": "svelte-kit sync && svelte-package && publint",
-    "dockerpack": "svelte-kit sync && svelte-package",
+    "prepack": "svelte-kit sync && svelte-package",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "format": "prettier --write .",
