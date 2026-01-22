@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { useCounterStore } from '$lib/docs/examples/counter/counter.svelte.ts'
-  import Counter from '$lib/docs/examples/counter/Counter.svelte'
+  import { useCounterStore } from '../../docs/examples/counter/counter.svelte.ts'
+  import Counter from '../../docs/examples/counter/Counter.svelte'
 
   let counterStore = useCounterStore()
 </script>
@@ -13,7 +13,7 @@ The store should be initalized and registered once, you can do this in your root
 
 ```ts
 import { register } from 'sv-store'
-import { useCounterStore } from '$lib/counter.svelte.ts'
+import { useCounterStore } from './counter.svelte.ts'
 
 register('counter', useCounterStore())
 ```

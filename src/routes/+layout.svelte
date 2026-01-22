@@ -1,6 +1,6 @@
 <script lang="ts">
 import 'modern-normalize/modern-normalize.css'
-import '$lib/docs/assets/main.scss'
+import '../docs/assets/main.scss'
 
 let { children } = $props()
 </script>
