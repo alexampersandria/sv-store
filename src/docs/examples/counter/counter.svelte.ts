@@ -6,7 +6,7 @@ export type CounterState = {
 }
 
 let value: CounterState['value'] = $state(0)
-let doubleValue: number = $derived.by(() => {
+const doubleValue: number = $derived.by(() => {
   return value * 2
 })
 
