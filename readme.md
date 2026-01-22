@@ -1,3 +1,53 @@
 # sv-store
 
 A Svelte library for creating and managing persistent stores using localStorage or sessionStorage
+
+## usage
+
+First define your store
+
+```ts
+export type ExampleState = {
+  value?: string
+}
+
+let value: ExampleState['value'] = $state()
+
+export const useExampleStore: () => ExampleState = () => {
+  return {
+    get value() {
+      return value
+    },
+    set value(to: number) {
+      value = to
+    },
+  }
+}
+```
+
+Then register it once in your main file or root layout file
+
+```ts
+import { register } from 'sv-store'
+import { useExampleStore } from './exampleStore.svelte.ts'
+
+// will be saved to local storage as `sv-store:example`
+register('example', useExampleStore())
+```
+
+The store can also be saved in session storage or use a different prefix
+
+```ts
+register('example', useExampleStore(), {
+  prefix: 'store', // or set prefix to `null` for no prefix at all
+  type: 'sessionStorage',
+})
+```
+
+And use it throughtout your app and components
+
+```ts
+import { useExampleStore } from './exampleStore.svelte.ts'
+
+let exampleStore = useExampleStore()
+```
