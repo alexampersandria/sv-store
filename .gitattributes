@@ -1,0 +1,4 @@
+# docs + exposed routes are not built and should not be counted
+src/docs/** linguist-documentation
+src/routes/** linguist-documentation
+src/app.html linguist-documentation
