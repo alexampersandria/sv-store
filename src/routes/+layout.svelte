@@ -1,8 +1,15 @@
 <script lang="ts">
 import 'modern-normalize/modern-normalize.css'
 import '../docs/assets/main.scss'
+import { afterNavigate } from '$app/navigation'
 
 let { children } = $props()
+
+afterNavigate(() => {
+  document.getElementById('root')?.scrollTo({
+    top: 0,
+  })
+})
 </script>
 
 <svelte:head>
