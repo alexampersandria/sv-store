@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { browser } from '$app/environment'
 import { onMount } from 'svelte'
 
 export type SvStoreType = 'localStorage' | 'sessionStorage'
@@ -28,50 +26,44 @@ export const register = (
   const storeName = prefix ? `${prefix}:${name}` : name
 
   const storeEffect = (store: any) => {
-    if (browser) {
-      const storeObject: { [key: string]: any } = {}
-      const keys = Object.keys(store)
-      keys.forEach(key => {
-        storeObject[key] = (store as { [key: string]: any })[key]
-      })
-      if (mounted) {
-        if (options?.type === 'localStorage' || !options?.type) {
-          localStorage.setItem(storeName, JSON.stringify(storeObject))
-        } else if (options?.type === 'sessionStorage') {
-          sessionStorage.setItem(storeName, JSON.stringify(storeObject))
-        }
+    const storeObject: { [key: string]: any } = {}
+    const keys = Object.keys(store)
+    keys.forEach(key => {
+      storeObject[key] = (store as { [key: string]: any })[key]
+    })
+    if (mounted) {
+      if (options?.type === 'localStorage' || !options?.type) {
+        localStorage.setItem(storeName, JSON.stringify(storeObject))
+      } else if (options?.type === 'sessionStorage') {
+        sessionStorage.setItem(storeName, JSON.stringify(storeObject))
       }
     }
   }
 
   const readStore = () => {
-    if (browser) {
-      let stored: string | null = null
-      if (options?.type === 'localStorage' || !options?.type) {
-        stored = localStorage.getItem(storeName)
-      } else if (options?.type === 'sessionStorage') {
-        stored = sessionStorage.getItem(storeName)
-      }
+    let stored: string | null = null
+    if (options?.type === 'localStorage' || !options?.type) {
+      stored = localStorage.getItem(storeName)
+    } else if (options?.type === 'sessionStorage') {
+      stored = sessionStorage.getItem(storeName)
+    }
 
-      console.log('stored', stored)
-
-      if (stored) {
-        const storedObject = JSON.parse(stored)
-        const keys = Object.keys(storedObject)
-        keys.forEach(key => {
-          if (store[key] !== storedObject[key]) {
-            try {
-              store[key] = storedObject[key]
-            } catch (_error) {
-              // key is read-only
-            }
+    if (stored) {
+      const storedObject = JSON.parse(stored)
+      const keys = Object.keys(storedObject)
+      keys.forEach(key => {
+        if (store[key] !== storedObject[key]) {
+          try {
+            store[key] = storedObject[key]
+          } catch (_error) {
+            // key is read-only
           }
-        })
-      }
-      // set loading to false if it exists on store
-      if ('loading' in store) {
-        store.loading = false
-      }
+        }
+      })
+    }
+    // set loading to false if it exists on store
+    if ('loading' in store) {
+      store.loading = false
     }
   }
 
