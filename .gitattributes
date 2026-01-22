@@ -2,3 +2,6 @@
 src/docs/** linguist-documentation
 src/routes/** linguist-documentation
 src/app.html linguist-documentation
+
+# svelte.ts files
+*.svelte.ts linguist-language=svelte
