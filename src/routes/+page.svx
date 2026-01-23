@@ -36,17 +36,17 @@ export const useExampleStore: () => ExampleState = () => {
 Then register it once in your main file or root layout file
 
 ```ts
-import { register } from 'sv-store'
+import { registerStore } from 'sv-store'
 import { useExampleStore } from './exampleStore.svelte.ts'
 
 // will be saved to local storage as `sv-store:example`
-register('example', useExampleStore())
+registerStore('example', useExampleStore())
 ```
 
 The store can also be saved in session storage or use a different prefix
 
 ```ts
-register('example', useExampleStore(), {
+registerStore('example', useExampleStore(), {
   prefix: 'store', // or set prefix to `null` for no prefix at all
   type: 'sessionStorage',
 })

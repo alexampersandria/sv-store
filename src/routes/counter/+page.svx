@@ -12,10 +12,10 @@ A simple counter store that has a value and a derived double value, and function
 The store should be initalized and registered once, you can do this in your root SvelteKit `+layout.svelte` or wherever else you seem fit.
 
 ```ts
-import { register } from 'sv-store'
+import { registerStore } from 'sv-store'
 import { useCounterStore } from './counter.svelte.ts'
 
-register('counter', useCounterStore())
+registerStore('counter', useCounterStore())
 ```
 
 You can then use the store anywhere in your SvelteKit and data is automatically saved to local storage and synced throughout your app, you only need to register your store once, subsequent registrations of the same `name` will have no effect. You can access the store and use it as follows in your components or routes.

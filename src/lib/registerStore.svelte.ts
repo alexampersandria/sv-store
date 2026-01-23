@@ -14,7 +14,7 @@ export type SvStoreOptions = {
  * @param store The store object to register
  * @param options Options for the store
  */
-export const register = (
+export const registerStore = (
   name: string,
   store: any,
   options?: SvStoreOptions,

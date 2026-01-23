@@ -1,8 +1,8 @@
 <script lang="ts">
-import { register } from '$lib/register.svelte'
+import { registerStore } from '$lib/registerStore.svelte'
 import { useCounterStore } from './counter.svelte.ts'
 
-register('counter', useCounterStore())
+registerStore('counter', useCounterStore())
 let counterStore = useCounterStore()
 </script>
 

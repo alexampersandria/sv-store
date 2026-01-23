@@ -1,1 +1,1 @@
-export { register } from './register.svelte.ts'
+export { registerStore } from './registerStore.svelte.ts'
