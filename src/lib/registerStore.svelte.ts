@@ -53,10 +53,10 @@ export const registerStore = (
       const keys = Object.keys(storedObject)
       keys.forEach(key => {
         if (store[key] !== storedObject[key]) {
-          try {
+          const properties = Object.getOwnPropertyDescriptor(store, key)
+          // if property has setter
+          if (properties?.set) {
             store[key] = storedObject[key]
-          } catch (_error) {
-            // key is read-only
           }
         }
       })
