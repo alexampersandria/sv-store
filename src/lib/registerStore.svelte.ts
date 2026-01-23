@@ -61,10 +61,6 @@ export const registerStore = (
         }
       })
     }
-    // set loading to false if it exists on store
-    if ('loading' in store) {
-      store.loading = false
-    }
   }
 
   onMount(() => {
