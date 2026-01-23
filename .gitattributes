@@ -5,3 +5,12 @@ src/app.html linguist-documentation
 
 # svelte.ts files
 *.svelte.ts linguist-language=svelte
+
+# config files
+*.config.ts -linguist-detectable
+eslint.config.js -linguist-detectable
+*.config.js -linguist-detectable
+selte.config.js -linguist-detectable
+
+# build script
+build.sh -linguist-detectable
