@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && npm run prepack",
+    "build:docker": "vite build",
     "preview": "vite preview",
     "prepare": "bunx svelte-kit sync || echo ''",
     "prepack": "bunx svelte-kit sync && bunx svelte-package",
