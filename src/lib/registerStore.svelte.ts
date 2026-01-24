@@ -1,11 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { onMount } from 'svelte'
+import { onMount, untrack } from 'svelte'
 
 export type SvStoreType = 'localStorage' | 'sessionStorage'
 
 export type SvStoreOptions = {
   type?: SvStoreType
   prefix?: string | null
+  beforeRead?: (state: any) => void
+  afterRead?: (state: any) => void
+  beforeWrite?: (state: any) => void
+  afterWrite?: (state: any) => void
 }
 
 /**
@@ -25,11 +29,13 @@ export const registerStore = (
   if (prefix === undefined) prefix = 'sv-store'
   const storeName = prefix ? `${prefix}:${name}` : name
 
-  const storeEffect = (store: any) => {
+  const storeEffect = (updatedStore: any) => {
+    untrack(() => options?.beforeWrite?.(store))
+
     const storeObject: { [key: string]: any } = {}
-    const keys = Object.keys(store)
+    const keys = Object.keys(updatedStore)
     keys.forEach(key => {
-      storeObject[key] = (store as { [key: string]: any })[key]
+      storeObject[key] = (updatedStore as { [key: string]: any })[key]
     })
     if (mounted) {
       if (options?.type === 'localStorage' || !options?.type) {
@@ -38,9 +44,13 @@ export const registerStore = (
         sessionStorage.setItem(storeName, JSON.stringify(storeObject))
       }
     }
+
+    untrack(() => options?.afterWrite?.(store))
   }
 
   const readStore = () => {
+    untrack(() => options?.beforeRead?.(store))
+
     let stored: string | null = null
     if (options?.type === 'localStorage' || !options?.type) {
       stored = localStorage.getItem(storeName)
@@ -61,6 +71,8 @@ export const registerStore = (
         }
       })
     }
+
+    untrack(() => options?.afterRead?.(store))
   }
 
   onMount(() => {
