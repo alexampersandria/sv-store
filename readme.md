@@ -18,7 +18,7 @@ export const useExampleStore: () => ExampleState = () => {
     get value() {
       return value
     },
-    set value(to: number) {
+    set value(to) {
       value = to
     },
   }
