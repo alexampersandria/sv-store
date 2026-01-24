@@ -1,0 +1,9 @@
+<script lang="ts">
+  import  Callback from '../../docs/examples/callback/Callback.svelte'
+</script>
+
+# Callback
+
+#TODO: write docs for this part :)
+
+<Callback />

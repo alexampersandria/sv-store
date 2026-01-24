@@ -21,9 +21,7 @@ registerStore('counter', useCounterStore())
 You can then use the store anywhere in your SvelteKit and data is automatically saved to local storage and synced throughout your app, you only need to register your store once, subsequent registrations of the same `name` will have no effect. You can access the store and use it as follows in your components or routes.
 
 <div class="preview">
-  <div class="value">
-    {counterStore.value}
-  </div>
+  {counterStore.value}
   <button onclick={counterStore.increment}> increment </button>
 </div>
 
@@ -34,9 +32,7 @@ import { useCounterStore } from '$lib/counter.svelte.ts'
 let counterStore = useCounterStore()
 </script>
 
-<div class="value">
-  {counterStore.value}
-</div>
+{counterStore.value}
 <button onclick={counterStore.increment}> increment </button>
 ```
 
@@ -74,7 +70,7 @@ export const useCounterStore: () => CounterState = () => {
     get value() {
       return value
     },
-    set value(to: number) {
+    set value(to) {
       value = to
     },
 
