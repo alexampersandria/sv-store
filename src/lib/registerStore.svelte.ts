@@ -13,10 +13,7 @@ export type SvStoreOptions = {
 }
 
 /**
- * registers an sv-store with localStorage persistence
- * @param name The name of the store
- * @param store The store object to register
- * @param options Options for the store
+ * registers an sv-store with localStorage or sessionStorage persistence
  */
 export const registerStore = (
   name: string,
