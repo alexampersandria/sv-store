@@ -1,66 +1,62 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { onMount } from 'svelte'
+import { onMount, untrack } from 'svelte'
 
 export type SvStoreType = 'localStorage' | 'sessionStorage'
 
 export type SvStoreOptions = {
   type?: SvStoreType
   prefix?: string | null
+  beforeRead?: (state: any) => void
+  afterRead?: (state: any) => void
+  beforeWrite?: (state: any) => void
+  afterWrite?: (state: any) => void
 }
 
 /**
- * registers an sv-store with localStorage persistence
- * @param name The name of the store
- * @param store The store object to register
- * @param options Options for the store
+ * registers an sv-store with localStorage or sessionStorage persistence
  */
 export const registerStore = (
   name: string,
   store: any,
   options?: SvStoreOptions,
 ) => {
+  if (typeof window === 'undefined') return
+
   let mounted: boolean = false
 
-  let prefix = options?.prefix
-  if (prefix === undefined) prefix = 'sv-store'
-  const storeName = prefix ? `${prefix}:${name}` : name
+  const prefix =
+    options?.prefix === null ? null : (options?.prefix ?? 'sv-store')
+  const key = prefix ? `${prefix}:${name}` : name
+  const space =
+    options?.type === 'sessionStorage' ? sessionStorage : localStorage
 
-  const storeEffect = (store: any) => {
-    const storeObject: { [key: string]: any } = {}
-    const keys = Object.keys(store)
-    keys.forEach(key => {
-      storeObject[key] = (store as { [key: string]: any })[key]
-    })
-    if (mounted) {
-      if (options?.type === 'localStorage' || !options?.type) {
-        localStorage.setItem(storeName, JSON.stringify(storeObject))
-      } else if (options?.type === 'sessionStorage') {
-        sessionStorage.setItem(storeName, JSON.stringify(storeObject))
-      }
-    }
+  const storeEffect = (state: any) => {
+    untrack(() => options?.beforeWrite?.(store))
+
+    const copy = { ...state }
+    if (mounted) space.setItem(key, JSON.stringify(copy))
+
+    untrack(() => options?.afterWrite?.(store))
   }
 
   const readStore = () => {
-    let stored: string | null = null
-    if (options?.type === 'localStorage' || !options?.type) {
-      stored = localStorage.getItem(storeName)
-    } else if (options?.type === 'sessionStorage') {
-      stored = sessionStorage.getItem(storeName)
-    }
+    untrack(() => options?.beforeRead?.(store))
+
+    const stored = space.getItem(key)
 
     if (stored) {
-      const storedObject = JSON.parse(stored)
-      const keys = Object.keys(storedObject)
-      keys.forEach(key => {
-        if (store[key] !== storedObject[key]) {
+      const state = JSON.parse(stored)
+      for (const key in state) {
+        if (store[key] !== state[key]) {
           const properties = Object.getOwnPropertyDescriptor(store, key)
-          // if property has setter
           if (properties?.set) {
-            store[key] = storedObject[key]
+            store[key] = state[key]
           }
         }
-      })
+      }
     }
+
+    untrack(() => options?.afterRead?.(store))
   }
 
   onMount(() => {
@@ -68,7 +64,5 @@ export const registerStore = (
     mounted = true
   })
 
-  $effect(() => {
-    storeEffect(store)
-  })
+  $effect(() => storeEffect(store))
 }

@@ -348,3 +348,100 @@ pre {
   max-width: 100%;
   overflow: auto;
 }
+
+input {
+  padding: var(--input-padding);
+  border-radius: var(--input-radius);
+  background-color: var(--input-background);
+  border: var(--border-width) solid var(--input-border);
+
+  &:not(:disabled) {
+    &:hover {
+      background-color: var(--input-background-hover);
+    }
+
+    &:focus {
+      background-color: var(--input-background);
+    }
+  }
+
+  &:disabled {
+    color: var(--input-disabled-color);
+    background-color: var(--input-disabled-background);
+  }
+
+  &.invalid {
+    box-shadow: 0 0 0 var(--state-shadow-width) var(--color-invalid-background);
+    border-color: var(--color-invalid-border);
+  }
+}
+
+textarea {
+  padding: var(--input-padding);
+  border-radius: var(--input-radius);
+  background-color: var(--input-background);
+  border: var(--border-width) solid var(--input-border);
+  resize: vertical;
+  height: calc(6lh + var(--padding-s) * 2);
+  min-height: calc(2lh + var(--padding-s) * 2);
+
+  &:not(:disabled) {
+    &:hover {
+      background-color: var(--input-background-hover);
+    }
+
+    &:focus {
+      background-color: var(--input-background);
+    }
+  }
+
+  &:disabled {
+    color: var(--input-disabled-color);
+    background-color: var(--input-disabled-background);
+  }
+
+  &.invalid {
+    box-shadow: 0 0 0 var(--state-shadow-width) var(--color-invalid-background);
+    border-color: var(--color-invalid-border);
+  }
+}
+
+button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--button-padding);
+  height: var(--button-height);
+  border-radius: var(--button-radius);
+  color: var(--button-color);
+  border: var(--border-width) solid var(--button-border);
+  background-color: var(--button-background);
+  font-size: var(--button-size);
+  overflow: hidden;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &:not(:disabled) {
+    cursor: pointer;
+
+    &:hover {
+      color: var(--button-color-hover);
+      background-color: var(--button-background-hover);
+      border-color: var(--button-border-hover);
+    }
+
+    &:active {
+      color: var(--button-color-active);
+      background-color: var(--button-background-active);
+      border-color: var(--button-border-active);
+      transform: var(--click-transform);
+    }
+  }
+
+  &:disabled {
+    color: var(--input-disabled-color) !important;
+    background-color: var(--input-disabled-background) !important;
+    border-color: var(--input-disabled-border) !important;
+  }
+}

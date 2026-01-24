@@ -63,3 +63,4 @@ let exampleStore = useExampleStore()
 ## examples
 
 - [Counter](/counter)
+- [Callback](/callback)

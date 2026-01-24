@@ -1,0 +1,50 @@
+<script lang="ts">
+  import  Callback from '../../docs/examples/callback/Callback.svelte'
+</script>
+
+# Callback
+
+When registering a store you can pass several optional callback functions in the options object, which names should be self explanatory as to when they are called:
+
+- `beforeRead`
+- `afterRead`
+- `beforeWrite`
+- `afterWrite`
+
+If we define a simlpe store as follows
+
+```ts
+export type CallbackState = {
+  value?: string
+}
+
+let value: CallbackState['value'] = $state()
+
+export const useCallbackStore: () => CallbackState = () => {
+  return {
+    get value() {
+      return value
+    },
+    set value(to) {
+      value = to
+    },
+  }
+}
+```
+
+Then we can pass callback functions on registration like so
+
+```ts
+registerStore('callback', useCallbackStore(), {
+  beforeRead: value => console.log('beforeRead', value),
+  afterRead: value => console.log('afterRead', value),
+  beforeWrite: value => console.log('beforeWrite', value),
+  afterWrite: value => console.log('afterWrite', value),
+})
+```
+
+## Demo
+
+Below is an interactive demo of the above example, where the log is shown in browser instead of using `console.log`.
+
+<Callback />

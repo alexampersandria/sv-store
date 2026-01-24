@@ -23,7 +23,7 @@ export const useCounterStore: () => CounterState = () => {
     get value() {
       return value
     },
-    set value(to: number) {
+    set value(to) {
       value = to
     },
 
