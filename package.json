@@ -72,5 +72,8 @@
     "url": "https://github.com/alexampersandria/sv-store"
   },
   "homepage": "https://sv-store.liara.io/",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "runed": "^0.37.1"
+  }
 }

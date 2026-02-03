@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { watch } from 'runed'
 import { onMount, untrack } from 'svelte'
 
 export type SvStoreType = 'localStorage' | 'sessionStorage'
@@ -10,6 +11,7 @@ export type SvStoreOptions = {
   afterRead?: (state: any) => void
   beforeWrite?: (state: any) => void
   afterWrite?: (state: any) => void
+  debounce?: number
 }
 
 /**
@@ -30,11 +32,32 @@ export const registerStore = (
   const space =
     options?.type === 'sessionStorage' ? sessionStorage : localStorage
 
+  let debounced: number | null = null
+  let timeout: ReturnType<typeof setTimeout> | null = null
+
   const storeEffect = (state: any) => {
+    if (!mounted) return
+    const debounceTime = untrack(() => options?.debounce)
+
+    if (debounceTime) {
+      const now = Date.now()
+      debounced = now
+      if (timeout) clearTimeout(timeout)
+      timeout = setTimeout(() => {
+        write(state)
+        debounced = null
+      }, debounceTime)
+      return
+    }
+
+    write(state)
+  }
+
+  const write = (state: any) => {
     untrack(() => options?.beforeWrite?.(store))
 
     const copy = { ...state }
-    if (mounted) space.setItem(key, JSON.stringify(copy))
+    space.setItem(key, JSON.stringify(copy))
 
     untrack(() => options?.afterWrite?.(store))
   }
@@ -64,5 +87,11 @@ export const registerStore = (
     mounted = true
   })
 
-  $effect(() => storeEffect(store))
+  watch(
+    () =>
+      Object.keys(store).map(key => {
+        store[key]
+      }),
+    () => storeEffect(store),
+  )
 }
