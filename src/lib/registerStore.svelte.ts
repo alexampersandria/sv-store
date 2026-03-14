@@ -20,6 +20,7 @@ export const registerStore = (
   store: any,
   options?: SvStoreOptions,
 ) => {
+  console.log('🦬 registering store', name)
   if (typeof window === 'undefined') return
 
   let mounted: boolean = false
@@ -31,6 +32,7 @@ export const registerStore = (
     options?.type === 'sessionStorage' ? sessionStorage : localStorage
 
   const storeEffect = (state: any) => {
+    console.log('🦬 storeEffect store', name)
     untrack(() => options?.beforeWrite?.(store))
 
     const copy = { ...state }
@@ -40,6 +42,7 @@ export const registerStore = (
   }
 
   const readStore = () => {
+    console.log('🦬 reading store', name)
     untrack(() => options?.beforeRead?.(store))
 
     const stored = space.getItem(key)
@@ -59,7 +62,11 @@ export const registerStore = (
     untrack(() => options?.afterRead?.(store))
   }
 
+  // this could be a fix?
+  // readStore()
+
   onMount(() => {
+    console.log('🦬 onMount store', name)
     readStore()
     mounted = true
   })

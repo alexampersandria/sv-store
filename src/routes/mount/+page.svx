@@ -1,0 +1,13 @@
+<script lang="ts">
+  import { registerStore } from '$lib/registerStore.svelte'
+  import { useMountStore } from '../../docs/examples/mount/mount.svelte.ts'
+  import Mount from '../../docs/examples/mount/Mount.svelte'
+
+  registerStore('mount', useMountStore())
+</script>
+
+# Mount
+
+<div class="preview">
+  <Mount />
+</div>
