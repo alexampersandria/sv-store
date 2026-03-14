@@ -4,7 +4,9 @@ src/routes/** linguist-documentation
 src/app.html linguist-documentation
 
 # svelte.ts files
-*.svelte.ts linguist-language=svelte
+# disabled again for code highlighting
+# but ideally svelte.ts files should count as svelte not ts under the language section to reflect the language used properly
+# *.svelte.ts linguist-language=svelte
 
 # config files
 *.config.ts -linguist-detectable
