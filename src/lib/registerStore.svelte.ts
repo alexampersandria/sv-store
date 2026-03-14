@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { onMount, untrack } from 'svelte'
+import { untrack } from 'svelte'
 
 export type SvStoreType = 'localStorage' | 'sessionStorage'
 
@@ -22,8 +22,6 @@ export const registerStore = (
 ) => {
   if (typeof window === 'undefined') return
 
-  let mounted: boolean = false
-
   const prefix =
     options?.prefix === null ? null : (options?.prefix ?? 'sv-store')
   const key = prefix ? `${prefix}:${name}` : name
@@ -34,7 +32,7 @@ export const registerStore = (
     untrack(() => options?.beforeWrite?.(store))
 
     const copy = { ...state }
-    if (mounted) space.setItem(key, JSON.stringify(copy))
+    space.setItem(key, JSON.stringify(copy))
 
     untrack(() => options?.afterWrite?.(store))
   }
@@ -59,10 +57,7 @@ export const registerStore = (
     untrack(() => options?.afterRead?.(store))
   }
 
-  onMount(() => {
-    readStore()
-    mounted = true
-  })
+  readStore()
 
   $effect(() => storeEffect(store))
 }
