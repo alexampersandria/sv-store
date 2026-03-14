@@ -59,8 +59,9 @@ export const registerStore = (
     untrack(() => options?.afterRead?.(store))
   }
 
+  readStore()
+
   onMount(() => {
-    readStore()
     mounted = true
   })
 
