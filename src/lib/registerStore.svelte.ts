@@ -7,6 +7,8 @@ export type SvStoreOptions = {
   type?: SvStoreType
   prefix?: string | null
   tabSynchronization?: boolean
+  serialize?: (value: any) => string
+  deserialize?: (value: string) => any
   beforeRead?: (state: any) => void
   afterRead?: (state: any) => void
   beforeWrite?: (state: any) => void
@@ -17,6 +19,8 @@ const DEFAULT_OPTIONS: SvStoreOptions = {
   type: 'localStorage',
   prefix: 'sv-store',
   tabSynchronization: true,
+  serialize: value => JSON.stringify(value),
+  deserialize: value => JSON.parse(value),
 }
 
 /**
@@ -35,21 +39,25 @@ export const registerStore = (
   const space = config.type === 'sessionStorage' ? sessionStorage : localStorage
 
   const storeEffect = (state: any) => {
+    if (!config.serialize) return
+
     untrack(() => config.beforeWrite?.(store))
 
     const copy = { ...state }
-    space.setItem(key, JSON.stringify(copy))
+    space.setItem(key, config.serialize(copy))
 
     untrack(() => config.afterWrite?.(store))
   }
 
   const readStore = () => {
+    if (!config.deserialize) return
+
     untrack(() => config.beforeRead?.(store))
 
     const stored = space.getItem(key)
 
     if (stored) {
-      const state = JSON.parse(stored)
+      const state = config.deserialize(stored)
       for (const key in state) {
         if (store[key] !== state[key]) {
           const properties = Object.getOwnPropertyDescriptor(store, key)
