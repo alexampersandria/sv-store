@@ -6,6 +6,7 @@ export type SvStoreType = 'localStorage' | 'sessionStorage'
 export type SvStoreOptions = {
   type?: SvStoreType
   prefix?: string | null
+  tabSynchronization?: boolean
   beforeRead?: (state: any) => void
   afterRead?: (state: any) => void
   beforeWrite?: (state: any) => void
@@ -58,6 +59,10 @@ export const registerStore = (
   }
 
   readStore()
+
+  if (options?.tabSynchronization !== false) {
+    window.addEventListener('storage', readStore)
+  }
 
   $effect(() => storeEffect(store))
 }
