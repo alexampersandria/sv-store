@@ -1,0 +1,33 @@
+.preview {
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-s);
+  padding: var(--padding-m);
+  background-color: var(--background-secondary);
+  margin-block: var(--padding-m);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-m);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-s);
+
+  th,
+  td {
+    padding-block: var(--padding-s);
+    border-bottom: var(--border-width) solid var(--border-color);
+  }
+
+  th {
+    text-align: left;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}

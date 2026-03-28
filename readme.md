@@ -2,18 +2,18 @@
 
 A Svelte library for creating and managing persistent stores using localStorage or sessionStorage
 
-## usage
+## Getting Started
 
 First define your store
 
 ```ts
-export type ExampleState = {
+export type ExampleModel = {
   value?: string
 }
 
-let value: ExampleState['value'] = $state()
+let value: ExampleModel['value'] = $state()
 
-export const useExampleStore: () => ExampleState = () => {
+export const useExampleStore: () => ExampleModel = () => {
   return {
     get value() {
       return value

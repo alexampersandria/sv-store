@@ -2,6 +2,7 @@
 @use 'variables.scss';
 @use 'code.scss';
 @use 'generics.scss';
+@use 'markdown.scss';
 
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
@@ -38,9 +39,6 @@ body {
   flex-direction: column;
   background-color: var(--background-primary);
   color: var(--text-primary);
-  transition:
-    background-color var(--animation-length-s) var(--better-ease-out),
-    color var(--animation-length-s) var(--better-ease-out);
   height: 100vh;
   overflow: auto;
 }

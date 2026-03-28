@@ -2,16 +2,30 @@
   import  Callback from '../../docs/examples/callback/Callback.svelte'
 </script>
 
-# Callback
+# Callbacks
 
-When registering a store you can pass several optional callback functions in the options object, which names should be self explanatory as to when they are called:
+Type into the input below and watch the callback log update in real time.
 
-- `beforeRead`
-- `afterRead`
-- `beforeWrite`
-- `afterWrite`
+<Callback />
 
-If we define a simlpe store as follows
+Try opening two separate tabs on this page and see how events propagate across tabs
+
+## options
+
+`registerStore` accepts four optional lifecycle callbacks that fire around storage reads and writes:
+
+| callback      | when it fires                                      |
+| ------------- | -------------------------------------------------- |
+| `beforeRead`  | before reading from storage (on init and tab sync) |
+| `afterRead`   | after reading from storage                         |
+| `beforeWrite` | before writing to storage                          |
+| `afterWrite`  | after writing to storage                           |
+
+Each callback receives the store instance as its argument.
+
+## store definition
+
+Given a simple store:
 
 ```ts
 export type CallbackState = {
@@ -32,19 +46,15 @@ export const useCallbackStore: () => CallbackState = () => {
 }
 ```
 
-Then we can pass callback functions on registration like so
+## registration
+
+Pass callbacks on registration:
 
 ```ts
 registerStore('callback', useCallbackStore(), {
-  beforeRead: value => console.log('beforeRead', value),
-  afterRead: value => console.log('afterRead', value),
-  beforeWrite: value => console.log('beforeWrite', value),
-  afterWrite: value => console.log('afterWrite', value),
+  beforeRead: store => console.log('beforeRead', store),
+  afterRead: store => console.log('afterRead', store),
+  beforeWrite: store => console.log('beforeWrite', store),
+  afterWrite: store => console.log('afterWrite', store),
 })
 ```
-
-## Demo
-
-Below is an interactive demo of the above example, where the log is shown in browser instead of using `console.log`.
-
-<Callback />
