@@ -86,13 +86,13 @@ let callbackStore = useCallbackStore()
         flex-shrink: 0;
 
         &[data-event='beforeRead'] {
-          color: var(--color-blue-60);
+          color: var(--color-lime-60);
         }
         &[data-event='afterRead'] {
           color: var(--color-green-60);
         }
         &[data-event='beforeWrite'] {
-          color: var(--color-purple-60);
+          color: var(--color-orange-60);
         }
         &[data-event='afterWrite'] {
           color: var(--color-red-60);

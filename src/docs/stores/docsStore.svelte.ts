@@ -4,7 +4,7 @@ export type DocsModel = {
   theme: Theme
 }
 
-let theme: DocsModel['theme'] = $state('dark')
+let theme: DocsModel['theme'] = $state('light')
 
 export const useDocsStore = (): DocsModel => {
   return {

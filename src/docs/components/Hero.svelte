@@ -37,7 +37,7 @@ async function copyCommand() {
 <div class="hero">
   <div class="text">
     <div class="hero-title">
-      <h1>sv-store</h1>
+      <h1>🌱 sv-store</h1>
       {#if version}
         <div class="version">
           {version}
