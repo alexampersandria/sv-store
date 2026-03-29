@@ -6,10 +6,21 @@ export type SvStoreType = 'localStorage' | 'sessionStorage'
 export type SvStoreOptions = {
   type?: SvStoreType
   prefix?: string | null
+  tabSynchronization?: boolean
+  serialize?: (value: any) => string
+  deserialize?: (value: string) => any
   beforeRead?: (state: any) => void
   afterRead?: (state: any) => void
   beforeWrite?: (state: any) => void
   afterWrite?: (state: any) => void
+}
+
+const DEFAULT_OPTIONS: SvStoreOptions = {
+  type: 'localStorage',
+  prefix: 'sv-store',
+  tabSynchronization: true,
+  serialize: value => JSON.stringify(value),
+  deserialize: value => JSON.parse(value),
 }
 
 /**
@@ -22,28 +33,31 @@ export const registerStore = (
 ) => {
   if (typeof window === 'undefined') return
 
-  const prefix =
-    options?.prefix === null ? null : (options?.prefix ?? 'sv-store')
-  const key = prefix ? `${prefix}:${name}` : name
-  const space =
-    options?.type === 'sessionStorage' ? sessionStorage : localStorage
+  const config = { ...DEFAULT_OPTIONS, ...options }
+
+  const key = config.prefix ? `${config.prefix}:${name}` : name
+  const space = config.type === 'sessionStorage' ? sessionStorage : localStorage
 
   const storeEffect = (state: any) => {
-    untrack(() => options?.beforeWrite?.(store))
+    if (!config.serialize) return
+
+    untrack(() => config.beforeWrite?.(store))
 
     const copy = { ...state }
-    space.setItem(key, JSON.stringify(copy))
+    space.setItem(key, config.serialize(copy))
 
-    untrack(() => options?.afterWrite?.(store))
+    untrack(() => config.afterWrite?.(store))
   }
 
   const readStore = () => {
-    untrack(() => options?.beforeRead?.(store))
+    if (!config.deserialize) return
+
+    untrack(() => config.beforeRead?.(store))
 
     const stored = space.getItem(key)
 
     if (stored) {
-      const state = JSON.parse(stored)
+      const state = config.deserialize(stored)
       for (const key in state) {
         if (store[key] !== state[key]) {
           const properties = Object.getOwnPropertyDescriptor(store, key)
@@ -54,10 +68,14 @@ export const registerStore = (
       }
     }
 
-    untrack(() => options?.afterRead?.(store))
+    untrack(() => config.afterRead?.(store))
   }
 
   readStore()
+
+  if (config.tabSynchronization) {
+    window.addEventListener('storage', readStore)
+  }
 
   $effect(() => storeEffect(store))
 }
