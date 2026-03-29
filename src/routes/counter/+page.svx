@@ -1,29 +1,79 @@
 <script lang="ts">
-  import { useCounterStore } from '../../docs/examples/counter/counter.svelte.ts'
   import Counter from '../../docs/examples/counter/Counter.svelte'
-
-  let counterStore = useCounterStore()
 </script>
 
 # Counter
 
-A simple counter store that has a value and a derived double value, and functions to increment and decrement the value.
+A counter store with a value, a derived `doubleValue`, and `increment`/`decrement` actions.
 
-The store should be initalized and registered once, you can do this in your root SvelteKit `+layout.svelte` or wherever else you seem fit.
+Try changing the value and reloading the page, or open two tabs and watch the value sync across them.
+
+<div class="preview">
+  <Counter />
+</div>
+
+## Store definition
+
+The values are defined like any other value in Svelte, use `$state` or `$derived` or any other rune you want.
+
+The exported function returns an object with getters and setters, keeping reactivity intact across all callers.
+
+```ts
+export type CounterState = {
+  value: number
+  doubleValue: number
+  isEven: boolean
+  increment: () => void
+  decrement: () => void
+}
+
+let value: CounterState['value'] = $state(0)
+const doubleValue = $derived(value * 2)
+const isEven: boolean = $derived.by(() => {
+  return value % 2 === 0
+})
+
+const increment = () => {
+  value += 1
+}
+const decrement = () => {
+  value -= 1
+}
+
+export const useCounterStore = (): CounterState => ({
+  get value() {
+    return value
+  },
+  set value(to) {
+    value = to
+  },
+  get doubleValue() {
+    return doubleValue
+  },
+  get increment() {
+    return increment
+  },
+  get decrement() {
+    return decrement
+  },
+})
+```
+
+## Registration
+
+Register the store once in your main file or root layout file
 
 ```ts
 import { registerStore } from 'sv-store'
 import { useCounterStore } from './counter.svelte.ts'
 
 registerStore('counter', useCounterStore())
+// stored in localStorage under `sv-store:counter`
 ```
 
-You can then use the store anywhere in your SvelteKit and data is automatically saved to local storage and synced throughout your app, you only need to register your store once, subsequent registrations of the same `name` will have no effect. You can access the store and use it as follows in your components or routes.
+## Usage
 
-<div class="preview">
-  {counterStore.value}
-  <button onclick={counterStore.increment}> increment </button>
-</div>
+Then call `useCounterStore()` anywhere in your app to access it
 
 ```svelte
 <script lang="ts">
@@ -32,58 +82,7 @@ import { useCounterStore } from '$lib/counter.svelte.ts'
 let counterStore = useCounterStore()
 </script>
 
-{counterStore.value}
-<button onclick={counterStore.increment}> increment </button>
-```
-
-## store definition
-
-The store is created using a state type and a function that returns type of the state using getters and setters for each value.
-
-<div class="preview">
-  <Counter />
-</div>
-
-```svelte
-export type CounterState = {
-  value: number
-  doubleValue: number
-  increment: () => void
-  decrement: () => void
-}
-
-let value: CounterState['value'] = $state(0)
-const doubleValue: number = $derived.by(() => {
-  return value * 2
-})
-
-const increment = () => {
-  value += 1
-}
-
-const decrement = () => {
-  value -= 1
-}
-
-export const useCounterStore: () => CounterState = () => {
-  return {
-    get value() {
-      return value
-    },
-    set value(to) {
-      value = to
-    },
-
-    get doubleValue() {
-      return doubleValue
-    },
-
-    get increment() {
-      return increment
-    },
-    get decrement() {
-      return decrement
-    },
-  }
-}
+<button onclick={counterStore.decrement}>-</button>
+<input type="number" bind:value={counterStore.value} />
+<button onclick={counterStore.increment}>+</button>
 ```

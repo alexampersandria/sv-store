@@ -25,19 +25,37 @@ $oklch-c-80: 0.12;
 $oklch-c-90: 0.09;
 $oklch-c-100: 0.05;
 
-$color-base-00: oklch(0.13 0.005 253.66 / 1);
-$color-base-05: oklch(0.17 0.0075 264.3 / 1);
-$color-base-10: oklch(0.2 0.0125 254.09 / 1);
-$color-base-20: oklch(0.29 0.02 255.66 / 1);
-$color-base-30: oklch(0.38 0.0225 259.38 / 1);
-$color-base-40: oklch(0.49 0.025 256.4 / 1);
-$color-base-50: oklch(0.57 0.0275 254.74 / 1);
-$color-base-60: oklch(0.68 0.025 257.24 / 1);
-$color-base-70: oklch(0.72 0.0225 254.64 / 1);
-$color-base-80: oklch(0.8 0.0175 262.74 / 1);
-$color-base-90: oklch(0.92 0.0125 244.26 / 1);
-$color-base-95: oklch(0.96 0.01 247.93 / 1);
-$color-base-100: oklch(1 0 0 / 1);
+// low contrast
+
+$color-base-00: oklch(0.179 0.008 118.7 / 1);
+$color-base-05: oklch(0.227 0.01 125.06 / 1);
+$color-base-10: oklch(0.289 0.011 122.2 / 1);
+$color-base-20: oklch(0.367 0.012 120.07 / 1);
+$color-base-30: oklch(0.462 0.013 123.83 / 1);
+$color-base-40: oklch(0.607 0.017 123.35 / 1);
+$color-base-50: oklch(0.737 0.019 120.92 / 1);
+$color-base-60: oklch(0.847 0.018 124.17 / 1);
+$color-base-70: oklch(0.876 0.017 121.97 / 1);
+$color-base-80: oklch(0.891 0.017 121.96 / 1);
+$color-base-90: oklch(0.906 0.017 121.96 / 1);
+$color-base-95: oklch(0.92 0.014 120.49 / 1);
+$color-base-100: oklch(0.935 0.012 121.94 / 1);
+
+// new values
+
+$color-base-00: oklch(0.179 0.008 118.7 / 1);
+$color-base-05: oklch(0.217 0.01 125.06 / 1);
+$color-base-10: oklch(0.255 0.011 122.2 / 1);
+$color-base-20: oklch(0.33 0.012 120.07 / 1);
+$color-base-30: oklch(0.406 0.013 123.83 / 1);
+$color-base-40: oklch(0.481 0.017 123.35 / 1);
+$color-base-50: oklch(0.557 0.019 120.92 / 1);
+$color-base-60: oklch(0.633 0.018 124.17 / 1);
+$color-base-70: oklch(0.708 0.017 121.97 / 1);
+$color-base-80: oklch(0.784 0.017 121.96 / 1);
+$color-base-90: oklch(0.86 0.017 121.96 / 1);
+$color-base-95: oklch(0.897 0.014 120.49 / 1);
+$color-base-100: oklch(0.935 0.012 121.94 / 1);
 
 $color-blue-00: oklch($oklch-l-00 $oklch-c-00 262.7 / 1);
 $color-blue-10: oklch($oklch-l-10 $oklch-c-10 261.75 / 1);
@@ -263,6 +281,7 @@ $moodColors: ('red', 'orange', 'yellow', 'lime', 'green');
   --overlay-inset-shadow: inset 0 0 0 var(--border-width) #{color.adjust($color-base-70, $alpha: -0.5)};
 
   --border-color: var(--color-base-80);
+  --transparent-border: #{color.adjust($color-base-50, $alpha: -0.75)};
 
   --blockquote-border-color: var(--color-base-80);
 
@@ -298,10 +317,10 @@ $moodColors: ('red', 'orange', 'yellow', 'lime', 'green');
   --color-personalized-border: var(--color-pink-70);
   --color-personalized-background: var(--color-pink-90);
 
-  --color-link: var(--color-personalized);
-  --color-link-hover: var(--color-personalized-hover);
+  --color-link: var(--text-primary);
+  --color-link-hover: var(--text-dimmed);
 
-  --color-focus: var(--color-blue-60);
+  --color-focus: var(--color-purple-60);
 
   --color-invalid: var(--color-error);
   --color-invalid-border: var(--color-error-border);
@@ -311,8 +330,8 @@ $moodColors: ('red', 'orange', 'yellow', 'lime', 'green');
 
   --hr-color: var(--border-color);
 
-  --selection-color: var(--color-blue-60);
-  --selection-text-color: var(--color-base-100);
+  --selection-color: var(--color-purple-70);
+  --selection-text-color: var(--color-purple-20);
 
   --input-background: var(--background-primary);
   --input-border: var(--border-color);
@@ -447,8 +466,12 @@ $moodColors: ('red', 'orange', 'yellow', 'lime', 'green');
   --circle-fill-color-purple: var(--color-purple-60);
   --circle-fill-color-pink: var(--color-pink-60);
 
-  --inline-code-color: var(--color-purple-50);
+  --inline-code-color: var(--color-lime-50);
   --inline-code-background: transparent;
+
+  --code-color-1: var(--color-lime-50);
+  --code-color-2: var(--color-purple-50);
+  --code-color-3: var(--color-pink-50);
 
   --checkbox-background-color: var(--color-base-100);
   --checkbox-background-color-hover: var(--color-base-90);
@@ -479,7 +502,7 @@ $moodColors: ('red', 'orange', 'yellow', 'lime', 'green');
   --calendar-between-selected-background: var(--color-base-30);
   --calendar-between-selected-color: var(--color-base-100);
 
-  @media (prefers-color-scheme: dark) {
+  &.theme-dark {
     color-scheme: dark;
 
     --logo-neutral: var(--color-base-100);
@@ -495,6 +518,7 @@ $moodColors: ('red', 'orange', 'yellow', 'lime', 'green');
     --overlay-inset-shadow: inset 0 0 0 var(--border-width) #{color.adjust($color-base-30, $alpha: -0.5)};
 
     --border-color: var(--color-base-20);
+    --transparent-border: #{color.adjust($color-base-50, $alpha: -0.75)};
 
     --blockquote-border-color: var(--color-base-40);
 
@@ -530,15 +554,15 @@ $moodColors: ('red', 'orange', 'yellow', 'lime', 'green');
     --color-personalized-border: var(--color-pink-50);
     --color-personalized-background: var(--color-pink-10);
 
-    --color-link: var(--color-personalized);
-    --color-link-hover: var(--color-personalized-hover);
+    --color-link: var(--text-primary);
+    --color-link-hover: var(--text-muted);
 
     --color-focus: var(--color-blue-50);
 
     --spinner-color: var(--color-base-50);
 
-    --selection-color: var(--color-blue-30);
-    --selection-text-color: var(--color-base-100);
+    --selection-color: var(--color-purple-30);
+    --selection-text-color: var(--color-purple-80);
 
     --button-background-active: var(--background-primary);
 
@@ -636,8 +660,12 @@ $moodColors: ('red', 'orange', 'yellow', 'lime', 'green');
     --circle-fill-color-purple: var(--color-purple-50);
     --circle-fill-color-pink: var(--color-pink-50);
 
-    --inline-code-color: var(--color-purple-60);
+    --inline-code-color: var(--color-lime-60);
     --inline-code-background: transparent;
+
+    --code-color-1: var(--color-lime-60);
+    --code-color-2: var(--color-pink-60);
+    --code-color-3: var(--color-base-80);
 
     --checkbox-background-color: var(--color-base-20);
     --checkbox-background-color-hover: var(--color-base-30);

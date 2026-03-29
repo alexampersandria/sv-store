@@ -1,0 +1,19 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-s);
+
+  th,
+  td {
+    padding-block: var(--padding-s);
+    border-bottom: var(--border-width) solid var(--border-color);
+  }
+
+  th {
+    text-align: left;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}

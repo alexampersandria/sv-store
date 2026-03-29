@@ -1,0 +1,64 @@
+<style lang="scss">
+  table {
+    table-layout: fixed;
+  }
+</style>
+
+# API Reference
+
+## registerStore
+
+Registers a store for automatic persistence
+
+Takes in an optional options object to configure namespace, persistence, synchronization, and serialization behavior.
+
+```ts
+import { registerStore } from 'sv-store'
+
+registerStore('counter', useCounterStore(), {
+  type: 'sessionStorage',
+  prefix: null,
+})
+```
+
+## Options
+
+### type
+
+| type                           | default      |
+| :----------------------------- | :----------- |
+| localStorage or sessionStorage | localStorage |
+
+### prefix
+
+| type           | default  |
+| :------------- | :------- |
+| string or null | sv-store |
+
+Namespaces the storage key as `{prefix}:{name}`. Set to `null` to use the name as a key with no prefix.
+
+### tabSynchronization
+
+| type    | default |
+| :------ | :------ |
+| boolean | true    |
+
+Whether to sync state across tabs.
+
+### serialize / deserialize
+
+| type     | default                     |
+| :------- | :-------------------------- |
+| function | JSON.stringify / JSON.parse |
+
+Custom serializer and deserializer pair. Useful when your store contains Dates, Maps, Sets, or other values that don't survive a JSON round-trip.
+
+### beforeRead / afterRead / beforeWrite / afterWrite
+
+| type            | default |
+| :-------------- | :------ |
+| (store) => void |         |
+
+Lifecycle hooks called around storage reads and writes.
+
+See the [callbacks example](/callback) for more info and an interactive demo.

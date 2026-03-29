@@ -2,6 +2,7 @@ input,
 select,
 textarea {
   font-size: var(--input-size);
+  color: var(--input-color);
 }
 
 p {
@@ -63,7 +64,7 @@ form {
 a,
 .link {
   color: var(--color-link);
-  text-decoration: none;
+  text-decoration: underline;
 
   &:hover {
     color: var(--color-link-hover);
@@ -117,6 +118,7 @@ textarea {
 
 h1 {
   font-size: var(--h1-size);
+  font-weight: 800;
 }
 
 h2 {
@@ -443,5 +445,26 @@ button {
     color: var(--input-disabled-color) !important;
     background-color: var(--input-disabled-background) !important;
     border-color: var(--input-disabled-border) !important;
+  }
+}
+
+.arrow-list {
+  list-style: none;
+  padding-inline-start: 0;
+
+  li {
+    &:before {
+      content: '→';
+      margin-right: var(--padding-s);
+      color: var(--text-dimmed);
+    }
+
+    a {
+      color: var(--text-muted);
+
+      &:hover {
+        color: var(--text-primary);
+      }
+    }
   }
 }

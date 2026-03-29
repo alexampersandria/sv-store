@@ -2,65 +2,58 @@
 import 'modern-normalize/modern-normalize.css'
 import '../docs/assets/main.scss'
 import { afterNavigate } from '$app/navigation'
+import Footer from '../docs/components/Footer.svelte'
+import Header from '../docs/components/Header.svelte'
+import Menu from '../docs/components/Menu.svelte'
+import { registerStore } from '$lib'
+import { useDocsStore } from '../docs/stores/docsStore.svelte'
 
 let { children } = $props()
 
+const docsStore = useDocsStore()
+registerStore('docs', docsStore)
+
 afterNavigate(() => {
-  document.getElementById('root')?.scrollTo({
-    top: 0,
-  })
+  document.getElementById('root')?.scrollTo({ top: 0 })
 })
+
+let menuOpen = $state(false)
 </script>
 
 <svelte:head>
   <title>sv-store</title>
 </svelte:head>
 
-<div id="root" class="color-red">
-  <div class="navigation container">
-    <div class="logo">
-      <a href="/">sv-store</a>
-    </div>
+<div id="root" class={`theme-${docsStore.theme}`}>
+  <Header onopenmenu={() => (menuOpen = !menuOpen)} />
 
-    <div class="links">
-      <a href="https://github.com/alexampersandria/sv-store" target="_blank"
-        >GitHub</a>
-      <a href="https://npmjs.com/package/sv-store" target="_blank">npm</a>
-    </div>
+  <div class="container page-layout">
+    <Menu bind:open={menuOpen} />
+    <main>
+      {@render children()}
+    </main>
   </div>
 
-  <div class="content container">
-    {@render children()}
-  </div>
-
-  <div class="footer container">
-    <div class="centered muted">
-      Created by <a href="https://liara.io" target="_blank">
-        Liara Alexandria Brüchmann
-      </a>
-    </div>
-  </div>
+  <Footer />
 </div>
 
 <style lang="scss">
 #root {
-  .navigation {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  .page-layout {
     display: flex;
-    justify-content: space-between;
-    padding-block: 2rem;
-
-    .links {
-      display: flex;
-      gap: 1rem;
-    }
-  }
-
-  .content {
     flex: 1;
-  }
+    width: 100%;
+    gap: var(--padding-xl);
+    padding-block: var(--padding-l);
 
-  .footer {
-    padding: 2rem 0 3rem 0;
+    main {
+      flex-grow: 1;
+      width: 100%;
+    }
   }
 }
 </style>
