@@ -41,6 +41,8 @@ let menuOpen = $state(false)
 #root {
   display: flex;
   flex-direction: column;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
   min-height: 100vh;
 
   .page-layout {
