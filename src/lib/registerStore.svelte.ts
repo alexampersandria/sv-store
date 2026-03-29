@@ -71,10 +71,14 @@ export const registerStore = (
     untrack(() => config.afterRead?.(store))
   }
 
+  const storageEvent = (event: StorageEvent) => {
+    if (event.key === key) readStore()
+  }
+
   readStore()
 
   if (config.tabSynchronization) {
-    window.addEventListener('storage', readStore)
+    window.addEventListener('storage', storageEvent)
   }
 
   $effect(() => storeEffect(store))
