@@ -158,16 +158,6 @@ async function copyCommand() {
         font-size: var(--font-size-s);
         padding: 0 var(--padding-s);
       }
-
-      .copy-btn {
-        flex-shrink: 0;
-        color: var(--text-muted);
-
-        &:hover {
-          color: var(--text-primary);
-          background-color: var(--border-color);
-        }
-      }
     }
   }
 

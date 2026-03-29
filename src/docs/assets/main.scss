@@ -20,7 +20,10 @@
 body {
   margin: 0;
 
-  @media (prefers-color-scheme: dark) {
+  background-color: #{color.$color-base-100};
+  color: #{color.$color-base-00};
+
+  &:has(.theme-dark) {
     background-color: #{color.$color-base-05};
     color: #{color.$color-base-100};
     color-scheme: dark;
@@ -39,6 +42,6 @@ body {
   flex-direction: column;
   background-color: var(--background-primary);
   color: var(--text-primary);
-  height: 100vh;
+  min-height: 100vh;
   overflow: auto;
 }
