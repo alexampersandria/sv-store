@@ -12,20 +12,26 @@ Try changing the value and reloading the page, or open two tabs and watch the va
   <Counter />
 </div>
 
-## store definition
+## Store definition
 
-State is declared with `$state` and `$derived` at module scope. The exported function returns an object with getters and setters, keeping reactivity intact across all callers.
+The values are defined like any other value in Svelte, use `$state` or `$derived` or any other rune you want.
+
+The exported function returns an object with getters and setters, keeping reactivity intact across all callers.
 
 ```ts
 export type CounterState = {
   value: number
   doubleValue: number
+  isEven: boolean
   increment: () => void
   decrement: () => void
 }
 
 let value: CounterState['value'] = $state(0)
 const doubleValue = $derived(value * 2)
+const isEven: boolean = $derived.by(() => {
+  return value % 2 === 0
+})
 
 const increment = () => {
   value += 1
@@ -53,7 +59,7 @@ export const useCounterStore = (): CounterState => ({
 })
 ```
 
-## registration
+## Registration
 
 Register the store once in your main file or root layout file
 
@@ -65,7 +71,7 @@ registerStore('counter', useCounterStore())
 // stored in localStorage under `sv-store:counter`
 ```
 
-## usage
+## Usage
 
 Then call `useCounterStore()` anywhere in your app to access it
 

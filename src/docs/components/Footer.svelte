@@ -23,5 +23,9 @@ footer {
   justify-content: center;
   align-items: center;
   font-size: var(--font-size-s);
+
+  a {
+    text-decoration: none;
+  }
 }
 </style>

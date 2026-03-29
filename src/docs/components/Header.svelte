@@ -10,7 +10,7 @@ let {
 </script>
 
 <header class="header">
-  <div class="container muted header-inner">
+  <div class="container header-inner">
     <button class="open-menu plain" onclick={onopenmenu}>
       <Menu />
     </button>
@@ -32,6 +32,10 @@ let {
   z-index: 10;
   border-bottom: var(--border-width) solid var(--transparent-border);
   backdrop-filter: blur(6px);
+
+  a {
+    text-decoration: none;
+  }
 
   &:before {
     display: block;

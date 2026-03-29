@@ -317,10 +317,10 @@ $moodColors: ('red', 'orange', 'yellow', 'lime', 'green');
   --color-personalized-border: var(--color-pink-70);
   --color-personalized-background: var(--color-pink-90);
 
-  --color-link: var(--color-personalized);
-  --color-link-hover: var(--color-personalized-hover);
+  --color-link: var(--text-primary);
+  --color-link-hover: var(--text-dimmed);
 
-  --color-focus: var(--color-blue-60);
+  --color-focus: var(--color-purple-60);
 
   --color-invalid: var(--color-error);
   --color-invalid-border: var(--color-error-border);
@@ -330,8 +330,8 @@ $moodColors: ('red', 'orange', 'yellow', 'lime', 'green');
 
   --hr-color: var(--border-color);
 
-  --selection-color: var(--color-blue-60);
-  --selection-text-color: var(--color-base-100);
+  --selection-color: var(--color-purple-70);
+  --selection-text-color: var(--color-purple-20);
 
   --input-background: var(--background-primary);
   --input-border: var(--border-color);
@@ -554,15 +554,15 @@ $moodColors: ('red', 'orange', 'yellow', 'lime', 'green');
     --color-personalized-border: var(--color-pink-50);
     --color-personalized-background: var(--color-pink-10);
 
-    --color-link: var(--color-personalized);
-    --color-link-hover: var(--color-personalized-hover);
+    --color-link: var(--text-primary);
+    --color-link-hover: var(--text-muted);
 
     --color-focus: var(--color-blue-50);
 
     --spinner-color: var(--color-base-50);
 
-    --selection-color: var(--color-blue-30);
-    --selection-text-color: var(--color-base-100);
+    --selection-color: var(--color-purple-30);
+    --selection-text-color: var(--color-purple-80);
 
     --button-background-active: var(--background-primary);
 
@@ -664,8 +664,8 @@ $moodColors: ('red', 'orange', 'yellow', 'lime', 'green');
     --inline-code-background: transparent;
 
     --code-color-1: var(--color-lime-60);
-    --code-color-2: var(--color-purple-60);
-    --code-color-3: var(--color-pink-60);
+    --code-color-2: var(--color-pink-60);
+    --code-color-3: var(--color-base-80);
 
     --checkbox-background-color: var(--color-base-20);
     --checkbox-background-color-hover: var(--color-base-30);

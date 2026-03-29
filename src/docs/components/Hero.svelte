@@ -1,5 +1,6 @@
 <script lang="ts">
 import { ArrowRight, Check } from 'lucide-svelte'
+import Button from './Button.svelte'
 
 const packageManagers = ['bun', 'pnpm', 'yarn', 'npm']
 let selectedPackageManager = $state(packageManagers[0])
@@ -37,7 +38,7 @@ async function copyCommand() {
 <div class="hero">
   <div class="text">
     <div class="hero-title">
-      <h1>🌱 sv-store</h1>
+      <h1>sv-store</h1>
       {#if version}
         <div class="version">
           {version}
@@ -45,8 +46,7 @@ async function copyCommand() {
       {/if}
     </div>
     <div class="muted hero-tagline">
-      Persistent reactive stores for Svelte 5 & SvelteKit <br />
-      Don't think about storage, just build your app
+      Persistent reactive stores for Svelte 5 & SvelteKit
     </div>
   </div>
 
@@ -63,25 +63,22 @@ async function copyCommand() {
     </div>
     <div class="command-row">
       <code class="command">{installCommand}</code>
-      <button
-        class="copy-btn icon"
-        onclick={copyCommand}
-        aria-label="Copy install command">
+      <Button onclick={copyCommand} aria-label="Copy install command">
         {#if copied}
           <Check /> Copied
         {:else}
           Copy
         {/if}
-      </button>
+      </Button>
     </div>
   </div>
 
-  <div class="cta-links">
-    <a href="/getting-started" class="cta-primary icon">
+  <div class="cta">
+    <Button href="/getting-started" type="primary">
       Get Started
       <ArrowRight />
-    </a>
-    <a href="/api" class="cta-secondary"> API Reference </a>
+    </Button>
+    <Button href="/api">API Reference</Button>
   </div>
 </div>
 
@@ -174,41 +171,9 @@ async function copyCommand() {
     }
   }
 
-  .cta-links {
+  .cta {
     display: flex;
     gap: var(--padding-s);
-    flex-wrap: wrap;
-
-    a {
-      display: inline-flex;
-      align-items: center;
-      padding: var(--padding-xs) var(--padding-m);
-      border-radius: var(--radius-s);
-      font-size: var(--font-size-s);
-      font-weight: 500;
-      text-decoration: none;
-
-      &.cta-primary {
-        background-color: var(--text-primary);
-        color: var(--background-primary);
-
-        &:hover {
-          opacity: 0.85;
-          color: var(--background-primary);
-        }
-      }
-
-      &.cta-secondary {
-        background-color: transparent;
-        border: var(--border-width) solid var(--border-color);
-        color: var(--text-muted);
-
-        &:hover {
-          color: var(--text-primary);
-          border-color: var(--text-dimmed);
-        }
-      }
-    }
   }
 }
 </style>

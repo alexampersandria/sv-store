@@ -1,8 +1,16 @@
+<style lang="scss">
+  table {
+    table-layout: fixed;
+  }
+</style>
+
 # API Reference
 
 ## registerStore
 
 Registers a store for automatic persistence
+
+Takes in an optional options object to configure namespace, persistence, synchronization, and serialization behavior.
 
 ```ts
 import { registerStore } from 'sv-store'
@@ -52,3 +60,5 @@ Custom serializer and deserializer pair. Useful when your store contains Dates, 
 | (store) => void |         |
 
 Lifecycle hooks called around storage reads and writes.
+
+See the [callbacks example](/callback) for more info and an interactive demo.

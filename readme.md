@@ -1,6 +1,6 @@
 # sv-store
 
-A Svelte library for creating and managing persistent stores using localStorage or sessionStorage
+Persistent reactive stores for Svelte 5 & SvelteKit
 
 ## Getting Started
 

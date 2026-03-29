@@ -6,3 +6,9 @@
     <li><a href="/counter">Counter Example</a></li>
   </ul>
 </section>
+
+<style lang="scss">
+a {
+  text-decoration: none;
+}
+</style>

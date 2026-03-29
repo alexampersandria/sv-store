@@ -10,7 +10,7 @@ Type into the input below and watch the callback log update in real time.
 
 Try opening two separate tabs on this page and see how events propagate across tabs
 
-## options
+## Options
 
 `registerStore` accepts four optional lifecycle callbacks that fire around storage reads and writes:
 
@@ -23,7 +23,7 @@ Try opening two separate tabs on this page and see how events propagate across t
 
 Each callback receives the store instance as its argument.
 
-## store definition
+## Store definition
 
 Given a simple store:
 
@@ -46,7 +46,7 @@ export const useCallbackStore: () => CallbackState = () => {
 }
 ```
 
-## registration
+## Registration
 
 Pass callbacks on registration:
 

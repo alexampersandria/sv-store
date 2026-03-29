@@ -81,7 +81,8 @@ pre[class*='language-'] {
   color: var(--code-color-2);
 }
 
-.token.keyword {
+.token.keyword,
+.token.builtin {
   color: var(--code-color-3);
 }
 

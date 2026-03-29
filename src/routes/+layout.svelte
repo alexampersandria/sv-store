@@ -52,7 +52,7 @@ let menuOpen = $state(false)
 
     main {
       flex-grow: 1;
-      overflow-x: hidden;
+      width: 100%;
     }
   }
 }

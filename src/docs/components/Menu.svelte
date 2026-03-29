@@ -56,6 +56,10 @@ afterNavigate(() => {
   flex-direction: column;
   gap: var(--padding-l);
 
+  a {
+    text-decoration: none;
+  }
+
   .menu-section {
     display: flex;
     flex-direction: column;
@@ -64,17 +68,44 @@ afterNavigate(() => {
     .title {
       font-size: var(--font-size-xs);
       font-weight: 700;
-      color: var(--text-dimmed);
+      color: var(--text-primary);
       text-transform: uppercase;
     }
 
     .menu-item {
       font-size: var(--font-size-s);
       color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      transition:
+        var(--interactive-transition),
+        padding-left 0.25s;
 
       &:hover,
       &.active {
         color: var(--text-primary);
+      }
+
+      &:before {
+        background-color: var(--border-color);
+        position: absolute;
+        left: 0;
+        display: block;
+        content: '';
+        height: 1em;
+        width: 2px;
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+
+      &.active {
+        padding-left: var(--padding-s);
+
+        &:before {
+          opacity: 1;
+        }
       }
     }
   }
