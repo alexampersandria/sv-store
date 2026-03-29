@@ -19,7 +19,10 @@
 
 body {
   margin: 0;
+}
 
+:root,
+body {
   background-color: #{color.$color-base-100};
   color: #{color.$color-base-00};
 
@@ -36,4 +39,3 @@ body {
   box-sizing: border-box;
   transform-origin: center;
 }
-

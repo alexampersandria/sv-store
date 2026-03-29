@@ -62,7 +62,7 @@ let {
     }
 
     .logo {
-      font-weight: 800;
+      font-weight: 600;
       font-size: var(--font-size-l);
     }
 

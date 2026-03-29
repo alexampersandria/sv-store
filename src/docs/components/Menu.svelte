@@ -27,7 +27,7 @@ afterNavigate(() => {
 })
 </script>
 
-<nav class="menu" class:open>
+<nav class="menu" id="menu" class:open>
   {#each nav as group}
     <div class="menu-section">
       <div class="title">{group.label}</div>
@@ -113,7 +113,7 @@ afterNavigate(() => {
   @media screen and (max-width: 860px) {
     position: fixed;
     width: 100vw;
-    height: 200dvh;
+    height: 100dvh;
     top: 0;
     left: 0;
     padding: var(--padding-m);
@@ -121,7 +121,6 @@ afterNavigate(() => {
     z-index: 1;
     backdrop-filter: blur(12px);
     border-bottom: var(--border-width) solid var(--transparent-border);
-    border-top: var(--border-width) solid var(--border-color);
 
     transition:
       opacity 0.25s,
@@ -144,7 +143,6 @@ afterNavigate(() => {
     &:not(.open) {
       opacity: 0;
       pointer-events: none;
-      transform: translateY(-12px);
     }
 
     .menu-section {

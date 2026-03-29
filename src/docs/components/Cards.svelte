@@ -45,14 +45,14 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--padding-xs);
+    gap: var(--padding-xxs);
     border-radius: var(--radius-m);
     padding: var(--padding-m);
     background-color: var(--background-secondary);
     border: var(--border-width) solid var(--border-color);
 
     .title {
-      font-weight: 800;
+      font-weight: 600;
       font-size: var(--font-size-l);
     }
 
