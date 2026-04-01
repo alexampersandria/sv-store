@@ -7,6 +7,7 @@ export type SvStoreOptions = {
   type?: SvStoreType
   prefix?: string | null
   tabSynchronization?: boolean
+  writeUnchanged?: boolean
   serialize?: (value: any) => string
   deserialize?: (value: string) => any
   beforeRead?: (state: any) => void
@@ -19,6 +20,7 @@ const DEFAULT_OPTIONS: SvStoreOptions = {
   type: 'localStorage',
   prefix: 'sv-store',
   tabSynchronization: true,
+  writeUnchanged: false,
   serialize: value => JSON.stringify(value),
   deserialize: value => JSON.parse(value),
 }
@@ -44,7 +46,7 @@ export const registerStore = (
     const copy = { ...state }
     const serialized = config.serialize(copy)
     const currentStored = space.getItem(key)
-    if (serialized === currentStored) return
+    if (serialized === currentStored && !config.writeUnchanged) return
 
     untrack(() => config.beforeWrite?.(store))
 
