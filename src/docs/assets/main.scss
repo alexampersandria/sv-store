@@ -23,14 +23,8 @@ body {
 
 :root,
 body {
-  background-color: #{color.$color-base-100};
+  background-color: #{color.$color-base-90};
   color: #{color.$color-base-00};
-
-  &:has(.theme-dark) {
-    background-color: #{color.$color-base-05};
-    color: #{color.$color-base-100};
-    color-scheme: dark;
-  }
 }
 
 *,
