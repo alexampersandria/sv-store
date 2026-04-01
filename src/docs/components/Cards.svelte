@@ -17,9 +17,7 @@
   </div>
   <div class="card">
     <div class="title">Cross-tab sync</div>
-    <div class="text">
-      Changes in one tab reflect immediately in all others event.
-    </div>
+    <div class="text">Changes in one tab reflect immediately in all others</div>
   </div>
   <div class="card">
     <div class="title">Callback support</div>
