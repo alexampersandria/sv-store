@@ -41,11 +41,14 @@ export const registerStore = (
   const storeEffect = (state: any) => {
     if (!config.serialize) return
 
+    const copy = { ...state }
+    const serialized = config.serialize(copy)
+    const currentStored = space.getItem(key)
+    if (serialized === currentStored) return
+
     untrack(() => config.beforeWrite?.(store))
 
-    const copy = { ...state }
-    space.setItem(key, config.serialize(copy))
-
+    space.setItem(key, serialized)
     untrack(() => config.afterWrite?.(store))
   }
 
