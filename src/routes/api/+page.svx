@@ -45,6 +45,14 @@ Namespaces the storage key as `{prefix}:{name}`. Set to `null` to use the name a
 
 Whether to sync state across tabs.
 
+### writeUnchanged
+
+| type    | default |
+| :------ | :------ |
+| boolean | false   |
+
+Whether to write to storage even if the value hasn't changed. By default, redundant writes are skipped.
+
 ### serialize / deserialize
 
 | type     | default                     |
