@@ -1,11 +1,12 @@
 <script lang="ts">
+import type { Snippet } from 'svelte'
+
 // https://github.com/alexampersandria/diary.computer/blob/main/frontend/src/lib/components/Button.svelte
 type ButtonType = 'primary' | 'secondary' | 'ghost'
 
 type ButtonProps = {
   children: Snippet
   type?: ButtonType
-  loading?: boolean
   disabled?: boolean
   fullwidth?: boolean
   onclick?: () => void
@@ -19,7 +20,6 @@ type ButtonProps = {
 let {
   children,
   type = 'secondary',
-  loading,
   disabled,
   fullwidth = false,
   onclick,
@@ -31,7 +31,7 @@ let {
 }: ButtonProps = $props()
 
 let clickHandler = () => {
-  if (!disabled && !loading && onclick && !href) {
+  if (!disabled && onclick && !href) {
     onclick()
   }
 }
@@ -40,12 +40,10 @@ let clickHandler = () => {
 <svelte:element
   this={href ? 'a' : 'button'}
   class="button {type}"
-  class:loading
   class:disabled
   class:fullwidth
   class:left
   class:right
-  aria-busy={loading}
   {disabled}
   aria-label={ariaLabel}
   role={href ? 'link' : 'button'}
@@ -55,11 +53,6 @@ let clickHandler = () => {
   <div class="button-content">
     {@render children()}
   </div>
-  {#if loading}
-    <div class="button-spinner">
-      <Spinner />
-    </div>
-  {/if}
 </svelte:element>
 
 <style lang="scss">
@@ -80,6 +73,7 @@ let clickHandler = () => {
   white-space: nowrap;
   flex-shrink: 0;
   text-decoration: none;
+  user-select: none;
 
   .button-content {
     padding: var(--button-padding);
