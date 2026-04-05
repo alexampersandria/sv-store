@@ -53,6 +53,14 @@ Whether to sync state across tabs.
 
 Whether to write to storage even if the value hasn't changed. By default, redundant writes are skipped.
 
+### preventWriteDuringRead
+
+| type    | default |
+| :------ | :------ |
+| boolean | true    |
+
+Whether to prevent writes during read operations.
+
 ### serialize / deserialize
 
 | type     | default                     |

@@ -8,6 +8,7 @@ export type SvStoreOptions = {
   prefix?: string | null
   tabSynchronization?: boolean
   writeUnchanged?: boolean
+  preventWriteDuringRead?: boolean
   serialize?: (value: any) => string
   deserialize?: (value: string) => any
   beforeRead?: (state: any) => void
@@ -21,6 +22,7 @@ const DEFAULT_OPTIONS: SvStoreOptions = {
   prefix: 'sv-store',
   tabSynchronization: true,
   writeUnchanged: false,
+  preventWriteDuringRead: true,
   serialize: value => JSON.stringify(value),
   deserialize: value => JSON.parse(value),
 }
@@ -40,7 +42,10 @@ export const registerStore = (
   const key = config.prefix ? `${config.prefix}:${name}` : name
   const space = config.type === 'sessionStorage' ? sessionStorage : localStorage
 
+  let isReading = false
+
   const storeEffect = (state: any) => {
+    if (isReading && config.preventWriteDuringRead) return
     if (!config.serialize) return
 
     const copy = { ...state }
@@ -62,14 +67,20 @@ export const registerStore = (
     const stored = space.getItem(key)
 
     if (stored) {
-      const state = config.deserialize(stored)
-      for (const key in state) {
-        if (store[key] !== state[key]) {
-          const properties = Object.getOwnPropertyDescriptor(store, key)
-          if (properties?.set) {
-            store[key] = state[key]
+      isReading = true
+      try {
+        const state = config.deserialize(stored)
+        for (const key in state) {
+          if (store[key] !== state[key]) {
+            const properties = Object.getOwnPropertyDescriptor(store, key)
+            if (properties?.set) {
+              store[key] = state[key]
+            }
           }
         }
+      } finally {
+        // ensure flag resets even if deserialization fails or other error occurs
+        isReading = false
       }
     }
 
