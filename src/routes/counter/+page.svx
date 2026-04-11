@@ -67,7 +67,9 @@ Register the store once in your main file or root layout file
 import { registerStore } from 'sv-store'
 import { useCounterStore } from './counter.svelte.ts'
 
-registerStore('counter', useCounterStore())
+registerStore('counter', useCounterStore(), {
+  tabSynchronization: true,
+})
 // stored in localStorage under `sv-store:counter`
 ```
 

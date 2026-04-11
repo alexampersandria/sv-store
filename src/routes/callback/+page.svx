@@ -52,6 +52,7 @@ Pass callbacks on registration:
 
 ```ts
 registerStore('callback', useCallbackStore(), {
+  tabSynchronization: true,
   beforeRead: store => console.log('beforeRead', store),
   afterRead: store => console.log('afterRead', store),
   beforeWrite: store => console.log('beforeWrite', store),

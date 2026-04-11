@@ -41,7 +41,7 @@ Namespaces the storage key as `{prefix}:{name}`. Set to `null` to use the name a
 
 | type    | default |
 | :------ | :------ |
-| boolean | true    |
+| boolean | false   |
 
 Whether to sync state across tabs.
 

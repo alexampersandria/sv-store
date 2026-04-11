@@ -2,7 +2,9 @@
 import { registerStore } from '$lib/registerStore.svelte'
 import { useCounterStore } from './counter.svelte.ts'
 
-registerStore('counter', useCounterStore())
+registerStore('counter', useCounterStore(), {
+  tabSynchronization: true,
+})
 let counterStore = useCounterStore()
 </script>
 
