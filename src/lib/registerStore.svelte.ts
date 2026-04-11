@@ -19,7 +19,7 @@ export type SvStoreOptions = {
 const DEFAULT_OPTIONS: SvStoreOptions = {
   type: 'localStorage',
   prefix: 'sv-store',
-  tabSynchronization: true,
+  tabSynchronization: false,
   writeUnchanged: false,
   serialize: value => JSON.stringify(value),
   deserialize: value => JSON.parse(value),

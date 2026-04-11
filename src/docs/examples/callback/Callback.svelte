@@ -18,6 +18,7 @@ const log = (event: string, state: CallbackState) => {
 }
 
 registerStore('callback', useCallbackStore(), {
+  tabSynchronization: true,
   beforeRead: value => log('beforeRead', value),
   afterRead: value => log('afterRead', value),
   beforeWrite: value => log('beforeWrite', value),
