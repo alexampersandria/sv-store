@@ -8,6 +8,7 @@ export type SvStoreOptions = {
   prefix?: string | null
   tabSynchronization?: boolean
   writeUnchanged?: boolean
+  persistReadOnly?: boolean
   serialize?: (value: any) => string
   deserialize?: (value: string) => any
   beforeRead?: (state: any) => void
@@ -21,6 +22,7 @@ const DEFAULT_OPTIONS: SvStoreOptions = {
   prefix: 'sv-store',
   tabSynchronization: true,
   writeUnchanged: false,
+  persistReadOnly: false,
   serialize: value => JSON.stringify(value),
   deserialize: value => JSON.parse(value),
 }
@@ -43,7 +45,18 @@ export const registerStore = (
   const storeEffect = (state: any) => {
     if (!config.serialize) return
 
-    const copy = { ...state }
+    let copy: Record<string, any>
+    if (config.persistReadOnly) {
+      copy = { ...state }
+    } else {
+      copy = {}
+      for (const k in state) {
+        const props = Object.getOwnPropertyDescriptor(state, k)
+        if (props?.set) {
+          copy[k] = state[k]
+        }
+      }
+    }
     const serialized = config.serialize(copy)
     const currentStored = space.getItem(key)
     if (serialized === currentStored && !config.writeUnchanged) return
