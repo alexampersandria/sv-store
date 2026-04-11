@@ -1,5 +1,7 @@
 # sv-store
 
+![Main Branch Workflow](https://github.com/alexampersandria/sv-store/actions/workflows/main.yml/badge.svg)
+
 Persistent reactive stores for Svelte 5 & SvelteKit
 
 ## Getting Started
