@@ -1,7 +1,7 @@
 <script lang="ts">
+// https://github.com/alexampersandria/diary.computer/blob/main/frontend/src/lib/components/Button.svelte
 import type { Snippet } from 'svelte'
 
-// https://github.com/alexampersandria/diary.computer/blob/main/frontend/src/lib/components/Button.svelte
 type ButtonType = 'primary' | 'secondary' | 'ghost'
 
 type ButtonProps = {
@@ -111,21 +111,7 @@ let clickHandler = () => {
     flex-shrink: 0;
   }
 
-  .button-spinner {
-    --spinner-size: 1rem;
-    position: absolute;
-  }
-
-  &.loading {
-    .button-content {
-      opacity: 0;
-    }
-    .button-spinner {
-      opacity: 1;
-    }
-  }
-
-  &:not(:disabled, .loading) {
+  &:not(:disabled) {
     cursor: pointer;
 
     &:hover {
@@ -148,7 +134,7 @@ let clickHandler = () => {
     border-color: var(--button-primary-border);
     background-color: var(--button-primary-background);
 
-    &:not(:disabled, .loading) {
+    &:not(:disabled) {
       &:hover {
         color: var(--button-primary-color-hover);
         background-color: var(--button-primary-background-hover);
@@ -167,7 +153,7 @@ let clickHandler = () => {
     background-color: transparent;
     border-color: transparent;
 
-    &:not(:disabled, .loading) {
+    &:not(:disabled) {
       &:hover {
         background-color: var(--button-background-hover);
         border-color: transparent;
