@@ -53,6 +53,14 @@ Whether to sync state across tabs.
 
 Whether to write to storage even if the value hasn't changed. By default, redundant writes are skipped.
 
+### persistReadOnly
+
+| type    | default |
+| :------ | :------ |
+| boolean | false   |
+
+Whether to persists all keys in sotrage. When `false` only keys with a setter are persisted. Keys with only getters are excluded, this could be derived values or other internal values like state handling, loading, error, etc.
+
 ### serialize / deserialize
 
 | type     | default                     |
